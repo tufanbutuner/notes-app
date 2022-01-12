@@ -2,7 +2,6 @@ import styled from "styled-components";
 import styledComponents from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
   justify-content: center;
   text-align: center;
 
@@ -11,3 +10,6 @@ export const Container = styled.div`
   }
 `;
 Container.displayName = "Container";
+
+export const TaskContainer = styled.div``;
+TaskContainer.displayName = "TaskContainer";
