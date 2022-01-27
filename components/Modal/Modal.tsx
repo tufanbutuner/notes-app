@@ -5,8 +5,13 @@ interface Props {}
 
 export default function Modal({}: Props): ReactElement {
   const [open, setOpen] = useState(true);
-
   const cancelButtonRef = useRef(null);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const message = e.target.value;
+    localStorage.setItem("task", message);
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -63,6 +68,7 @@ export default function Modal({}: Props): ReactElement {
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="inline-full-name"
                         type="text"
+                        onChange={onChange}
                       />
                     </div>
                   </div>
