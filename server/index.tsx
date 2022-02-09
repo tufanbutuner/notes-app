@@ -1,18 +1,25 @@
-const express = require("express");
-const { Deta } = require("deta");
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 
-const deta = Deta("myProjectKey"); // configure your Deta project
-const db = deta.Base("toDoDB"); // access your DB
+import { getAnalytics } from "firebase/analytics";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
 
-const app = express(); // instantiate express
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-app.use(express.json()); // for parsing application/json bodies
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAnYZQLZHPFVgE1II5Xhqj9okCVON8Dz5M",
+  authDomain: "takenote-9e295.firebaseapp.com",
+  projectId: "takenote-9e295",
+  storageBucket: "takenote-9e295.appspot.com",
+  messagingSenderId: "38339963755",
+  appId: "1:38339963755:web:2cbabe144f321666a47a2e",
+  measurementId: "G-DQJ3P8GZSQ",
+};
 
-app.post("/users", async (req, res) => {
-  const { name, age, hometown } = req.body;
-  const toCreate = { name, age, hometown };
-  const insertedUser = await db.put(toCreate); // put() will autogenerate a key for us
-  res.status(201).json(insertedUser);
-});
-
-export {};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore();
