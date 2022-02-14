@@ -1,24 +1,29 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, ReactElement, useRef, useState } from "react";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { Fragment, ReactElement, useEffect, useRef, useState } from "react";
+import { collection, doc, setDoc } from "firebase/firestore";
+
+import { db } from "../../server/index";
 
 interface Props {}
 
 export default function Modal({}: Props): ReactElement {
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
+  const taskCollection = collection(db, "tasks");
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const message = e.target.value;
   };
 
-  // const handleSubmit = async (e: React.MouseEvent<HTMLInputElement>) => {
-  //   await setDoc(doc(db, "tasks"), {
-  //     task: "Tufan's very first task",
-  //   });
-  //   setOpen(false);
-  // };
+  // useEffect(() => {
+  //   const handleSubmit = async (e: React.MouseEvent<HTMLInputElement>) => {
+  //     await setDoc(doc(db, "tasks"), {
+  //       task: "Tufan's very first task",
+  //     });
+  //     // setOpen(false);
+  //   };
+  // }, []);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -84,7 +89,7 @@ export default function Modal({}: Props): ReactElement {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={handleSubmit}
+                  // onClick={handleSubmit}
                 >
                   Save
                 </button>
