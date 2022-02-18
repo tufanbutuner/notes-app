@@ -1,8 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
+import { DashboardContainer, Task, TaskListContainer } from "./styles";
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 
 import Navbar from "../../components/Navbar/Navbar";
-import { Task } from "./styles";
 import { db } from "../../server/index";
 
 export default function Dashboard() {
@@ -19,14 +20,15 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <div className="container mx-auto block justify-center p-5">
+    <DashboardContainer>
+      <img width="250px" height="250px" src="./task-image.svg" alt="" />
+
+      <TaskListContainer>
         <h1 className="font-bold">Your tasks</h1>
         {tasks.map((task) => {
           return <Task key={task}>{task.task}</Task>;
         })}
-      </div>
-    </>
+      </TaskListContainer>
+    </DashboardContainer>
   );
 }
