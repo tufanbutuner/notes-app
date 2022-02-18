@@ -1,10 +1,9 @@
-import Navbar from "../components/Navbar/Navbar";
-import styles from "../styles/Home.module.css";
+import Dashboard from "./Dashboard/Dashboard";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <Dashboard />
     </>
   );
 }

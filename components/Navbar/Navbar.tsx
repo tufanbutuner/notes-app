@@ -1,32 +1,19 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable @next/next/no-img-element */
 import { Popover, Transition } from "@headlessui/react";
-import React, { ReactElement, useEffect, useState } from "react";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import React, { ReactElement, useState } from "react";
 
 import Modal from "../Modal/Modal";
-import { db } from "../../server/index";
 
 interface Props {}
 
 export default function Navbar({}: Props): ReactElement {
   const [showModal, setShowModal] = useState(false);
-  const [tasks, setTask] = useState<any>([]);
-  const taskCollection = collection(db, "tasks");
 
   const handleClick = (e) => {
     e.preventDefault();
     setShowModal((prev) => !prev);
   };
-
-  useEffect(() => {
-    const getTasks = async () => {
-      const data = await getDocs(taskCollection);
-      setTask(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log(data);
-    };
-    getTasks();
-  }, []);
 
   return (
     <>
@@ -61,13 +48,6 @@ export default function Navbar({}: Props): ReactElement {
           </div>
         </div>
       </Popover>
-
-      <div className="container mx-auto block justify-center">
-        <h1 className="font-bold">Your tasks</h1>
-        {tasks.map((task) => {
-          return <span className="">{task.task}</span>;
-        })}
-      </div>
     </>
   );
 }
