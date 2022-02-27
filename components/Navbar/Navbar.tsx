@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable @next/next/no-img-element */
 import { Popover, Transition } from "@headlessui/react";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 
 import Modal from "../Modal/Modal";
 
@@ -7,16 +9,11 @@ interface Props {}
 
 export default function Navbar({}: Props): ReactElement {
   const [showModal, setShowModal] = useState(false);
-  const [tasks, setTask] = useState<any>([]);
 
   const handleClick = (e) => {
     e.preventDefault();
     setShowModal((prev) => !prev);
   };
-
-  useEffect(() => {
-    setTask(localStorage.getItem("task"));
-  }, []);
 
   return (
     <>
@@ -24,14 +21,12 @@ export default function Navbar({}: Props): ReactElement {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <a href="#">
-                <span className="sr-only">Take Note</span>
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                  alt=""
-                />
-              </a>
+              <span className="sr-only">Take Note</span>
+              <img
+                className="h-8 w-auto sm:h-10"
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                alt=""
+              />
             </div>
 
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
@@ -53,11 +48,6 @@ export default function Navbar({}: Props): ReactElement {
           </div>
         </div>
       </Popover>
-
-      <div className="container mx-auto block justify-center">
-        <h1 className="font-bold">Your tasks</h1>
-        <span className="">{tasks}</span>
-      </div>
     </>
   );
 }
