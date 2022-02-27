@@ -3,8 +3,10 @@ import { DashboardContainer, Task, TaskListContainer } from "./styles";
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 
+import Image from "next/image";
 import Navbar from "../../components/Navbar/Navbar";
 import { db } from "../../server/index";
+import image from "/public/undraw_diary_re_4jpc.svg";
 
 export default function Dashboard() {
   const [tasks, setTask] = useState<any>([]);
@@ -17,11 +19,12 @@ export default function Dashboard() {
       console.log(data);
     };
     getTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <DashboardContainer>
-      <img width="250px" height="250px" src="./task-image.svg" alt="" />
+      <Image width="100%" height="100%" src={image} alt="" />
 
       <TaskListContainer>
         <h1 className="font-bold">Your tasks</h1>
