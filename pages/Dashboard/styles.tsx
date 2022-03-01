@@ -9,6 +9,11 @@ export const DashboardContainer = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-areas: "image tasks";
+  height: 500px;
+
+  img {
+    padding: 24px;
+  }
 `;
 DashboardContainer.displayName = "DashboardContainer";
 

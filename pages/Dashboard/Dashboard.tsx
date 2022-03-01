@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 
 import Image from "next/image";
-import Navbar from "../../components/Navbar/Navbar";
 import { db } from "../../server/index";
 import image from "/public/undraw_diary_re_4jpc.svg";
 
