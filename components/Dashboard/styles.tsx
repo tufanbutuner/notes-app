@@ -8,6 +8,11 @@ export const Task = styled.span`
   background: rgb(0, 0, 0, 0.1);
   border-radius: 6px;
   padding: 6px 12px;
+  align-items: center;
+
+  input {
+    float: right;
+  }
 `;
 Task.displayName = "Task";
 
@@ -31,6 +36,8 @@ export const DashboardContainer = styled.div`
 
   img {
     padding: 24px;
+    width: 80%;
+    height: 80%;
   }
 `;
 DashboardContainer.displayName = "DashboardContainer";

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { DashboardContainer, Task, TaskListContainer } from "./styles";
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
 import Image from "next/image";
 import { db } from "../../server/index";
@@ -9,7 +9,21 @@ import image from "/public/undraw_diary_re_4jpc.svg";
 
 export default function Dashboard() {
   const [tasks, setTask] = useState<any>([]);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [deleteTask, setDeleteTask] = useState();
+
   const taskCollection = collection(db, "tasks");
+  // const taskDelete = doc(db, "tasks", tasks: tasks.id);
+  console.log(tasks);
+
+  // useEffect(() => {
+  //   const deleteTask = async () => {
+  //     const data = await deleteDoc(taskDelete);
+  //     console.log(data);
+  //   };
+  //   deleteTask();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     const getTasks = async () => {
@@ -23,12 +37,23 @@ export default function Dashboard() {
 
   return (
     <DashboardContainer>
-      <Image width="100%" height="100%" src={image} alt="" />
+      <Image src={image} alt="" />
 
       <TaskListContainer>
-        <h1 className="font-bold">Your tasks</h1>
+        <h1>Your tasks</h1>
         {tasks.map((task) => {
-          return <Task key={task}>{task.task}</Task>;
+          return (
+            <Task key={task.id}>
+              {task.task}
+              <input
+                onClick={() => setIsComplete(true)}
+                type="checkbox"
+                id=""
+                name="task"
+                value=""
+              />
+            </Task>
+          );
         })}
       </TaskListContainer>
     </DashboardContainer>

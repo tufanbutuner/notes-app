@@ -6,14 +6,12 @@ import {
 } from "./styles";
 /* eslint-disable react/jsx-key */
 /* eslint-disable @next/next/no-img-element */
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 
 import Modal from "../Modal/Modal";
 import { motion } from "framer-motion";
 
-interface Props {}
-
-export default function Navbar({}: Props): ReactElement {
+export default function Navbar() {
   const [showModal, setShowModal] = useState(false);
 
   const handleClick = (e) => {
@@ -24,7 +22,6 @@ export default function Navbar({}: Props): ReactElement {
   return (
     <NavbarContainer>
       <NavbarLogo>Take Note</NavbarLogo>
-
       <NavbarPages>
         <a href="#">Sign in</a>
         <AddTaskButton
