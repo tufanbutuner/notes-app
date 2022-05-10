@@ -23,17 +23,17 @@ export default function Navbar() {
     <NavbarContainer>
       <NavbarLogo>Take Note</NavbarLogo>
       <NavbarPages>
-        <a href="#">Sign in</a>
         <AddTaskButton
           as={motion.button}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handleClick}
+          open={showModal}
         >
           Add Task
-          {showModal === true && <Modal />}
         </AddTaskButton>
       </NavbarPages>
+      {showModal === true && <Modal />}
     </NavbarContainer>
   );
 }

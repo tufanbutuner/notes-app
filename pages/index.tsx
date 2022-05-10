@@ -6,6 +6,7 @@ export default function Home() {
     <>
       <Navbar />
       <Dashboard />
+      <div id="ModalPortal"></div>
     </>
   );
 }
