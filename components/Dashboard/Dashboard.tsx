@@ -9,31 +9,22 @@ import image from "/public/undraw_diary_re_4jpc.svg";
 
 export default function Dashboard() {
   const [tasks, setTask] = useState<any>([]);
-  const [isComplete, setIsComplete] = useState<boolean>(false);
-  const [deleteTask, setDeleteTask] = useState();
-
   const taskCollection = collection(db, "tasks");
-  // const taskDelete = doc(db, "tasks", tasks: tasks.id);
-  console.log(tasks);
-
-  // useEffect(() => {
-  //   const deleteTask = async () => {
-  //     const data = await deleteDoc(taskDelete);
-  //     console.log(data);
-  //   };
-  //   deleteTask();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     const getTasks = async () => {
       const data = await getDocs(taskCollection);
       setTask(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log(data);
     };
     getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const deleteTask = async (task) => {
+    const taskDelete = doc(db, "tasks", task.id);
+    const data = await deleteDoc(taskDelete);
+    console.log(data);
+  };
 
   return (
     <DashboardContainer>
@@ -46,7 +37,7 @@ export default function Dashboard() {
             <Task key={task.id}>
               {task.task}
               <input
-                onClick={() => setIsComplete(true)}
+                onClick={() => deleteTask(task).then()}
                 type="checkbox"
                 id=""
                 name="task"
