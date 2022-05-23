@@ -1,5 +1,3 @@
-import "../styles/globals.css";
-
 import Dashboard from "../components/Dashboard/Dashboard";
 import Navbar from "../components/Navbar";
 
