@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Task = styled.span`
   display: block;
-  @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
   font-family: "Space Grotesk", sans-serif;
   margin-top: 16px;
   background: rgb(0, 0, 0, 0.1);
@@ -17,7 +16,6 @@ export const Task = styled.span`
 Task.displayName = "Task";
 
 export const DashboardContainer = styled.div`
-  @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
   font-family: "Space Grotesk", sans-serif;
 
   @media (max-width: 600px) {
@@ -43,7 +41,6 @@ export const DashboardContainer = styled.div`
 DashboardContainer.displayName = "DashboardContainer";
 
 export const TaskListContainer = styled.div`
-  @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
   font-family: "Space Grotesk", sans-serif;
 
   grid-area: tasks;
@@ -51,6 +48,6 @@ export const TaskListContainer = styled.div`
   width: 100%;
   margin-top: 32px;
   justify-content: center;
-  padding: 12px;
+  padding: 28px;
 `;
 TaskListContainer.displayName = "TaskListContainer";
