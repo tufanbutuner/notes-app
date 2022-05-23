@@ -21,7 +21,7 @@ export default function Modal({ onClose }: Props): ReactElement {
   const taskCollection = doc(collection(db, "tasks"));
   const [taskInput, setTaskInput] = useState({});
 
-  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setTaskInput(e.target.value);
   };
@@ -39,12 +39,16 @@ export default function Modal({ onClose }: Props): ReactElement {
         <ModalHeader>
           <h4 className="modal-title">Add new task</h4>
         </ModalHeader>
-        <ModalBody>here lies the modal content</ModalBody>
+        <ModalBody>
+          <input type="text" onChange={handleChange}></input>
+        </ModalBody>
         <ModalFooter>
           <button className="close" onClick={() => setOpen(false)}>
             Close
           </button>
-          <button className="submit">Submit</button>
+          <button className="submit" onClick={handleSubmit}>
+            Submit
+          </button>
         </ModalFooter>
       </ModalContainer>
     </ModalBackground>,
