@@ -21,10 +21,6 @@ export const DashboardContainer = styled.div`
   @media (max-width: 600px) {
     display: flex;
     flex-direction: column;
-
-    img {
-      visibility: hidden;
-    }
   }
 
   display: grid;
@@ -42,12 +38,22 @@ DashboardContainer.displayName = "DashboardContainer";
 
 export const TaskListContainer = styled.div`
   font-family: "Space Grotesk", sans-serif;
-
   grid-area: tasks;
   display: block;
   width: 100%;
   margin-top: 32px;
   justify-content: center;
-  padding: 28px;
+  padding: 0px 48px 0px 24px;
+
+  @media (max-width: 600px) {
+    margin-top: 0px;
+  }
 `;
 TaskListContainer.displayName = "TaskListContainer";
+
+export const ImageContainer = styled.div`
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+ImageContainer.displayName = "ImageContainer";

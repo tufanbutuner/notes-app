@@ -1,5 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { DashboardContainer, Task, TaskListContainer } from "./styles";
+import {
+  DashboardContainer,
+  ImageContainer,
+  Task,
+  TaskListContainer,
+} from "./styles";
 import React, { useEffect, useState } from "react";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
@@ -18,17 +23,19 @@ export default function Dashboard() {
     };
     getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [tasks]);
 
   const deleteTask = async (task) => {
     const taskDelete = doc(db, "tasks", task.id);
     const data = await deleteDoc(taskDelete);
-    console.log(data);
+    // return data;
   };
 
   return (
     <DashboardContainer>
-      <Image src={image} alt="" />
+      <ImageContainer>
+        <Image src={image} alt="" />
+      </ImageContainer>
 
       <TaskListContainer>
         <h1>Your tasks</h1>
