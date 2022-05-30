@@ -6,7 +6,13 @@ import {
   TaskListContainer,
 } from "./styles";
 import React, { useEffect, useState } from "react";
-import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 
 import Image from "next/image";
 import { db } from "../../server/index";
@@ -14,16 +20,21 @@ import image from "/public/undraw_diary_re_4jpc.svg";
 
 export default function Dashboard() {
   const [tasks, setTask] = useState<any>([]);
-  const taskCollection = collection(db, "tasks");
+
+  const getTasks = async () => {
+    const data = await onSnapshot(collection(db, "tasks"), (snapshot) => {
+      const task = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setTask(task);
+    });
+  };
 
   useEffect(() => {
-    const getTasks = async () => {
-      const data = await getDocs(taskCollection);
-      setTask(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tasks]);
+  }, []);
 
   const deleteTask = async (task) => {
     const taskDelete = doc(db, "tasks", task.id);
