@@ -16,7 +16,7 @@ export default function Navbar() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    setShowModal((prev) => !prev);
+    setShowModal(true);
   };
 
   return (
@@ -33,7 +33,7 @@ export default function Navbar() {
           Add Task
         </AddTaskButton>
       </NavbarPages>
-      {showModal === true && <Modal />}
+      {showModal === true && <Modal setShowModal={setShowModal} />}
     </NavbarContainer>
   );
 }

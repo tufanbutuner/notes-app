@@ -12,12 +12,11 @@ import ReactDom from "react-dom";
 import { db } from "../../server/index";
 
 interface Props {
-  onClose?: boolean;
+  setShowModal: any;
   open?: boolean;
 }
 
-export default function Modal({ onClose }: Props): ReactElement {
-  const [open, setOpen] = useState(true);
+export default function Modal({ setShowModal }: Props): ReactElement {
   const taskCollection = doc(collection(db, "tasks"));
   const [taskInput, setTaskInput] = useState({});
 
@@ -28,10 +27,12 @@ export default function Modal({ onClose }: Props): ReactElement {
 
   const handleSubmit = async (e?: React.MouseEvent<HTMLInputElement>) => {
     await setDoc(taskCollection, { task: taskInput });
-    setOpen(false);
+    setShowModal(false);
   };
 
-  if (!open) return null;
+  const handleClose = async (e?: React.MouseEvent<HTMLInputElement>) => {
+    setShowModal(false);
+  };
 
   return ReactDom.createPortal(
     <ModalBackground>
@@ -43,7 +44,7 @@ export default function Modal({ onClose }: Props): ReactElement {
           <input type="text" onChange={handleChange}></input>
         </ModalBody>
         <ModalFooter>
-          <button className="close" onClick={() => setOpen(false)}>
+          <button className="close" onClick={handleClose}>
             Close
           </button>
           <button className="submit" onClick={handleSubmit}>
