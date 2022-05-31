@@ -1,9 +1,12 @@
 import {
+  CloseButton,
   ModalBackground,
   ModalBody,
   ModalContainer,
   ModalFooter,
   ModalHeader,
+  ModalTitle,
+  SubmitButton,
 } from "./styles";
 import { ReactElement, useState } from "react";
 import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
@@ -13,7 +16,6 @@ import { db } from "../../server/index";
 
 interface Props {
   setShowModal: any;
-  open?: boolean;
 }
 
 export default function Modal({ setShowModal }: Props): ReactElement {
@@ -33,6 +35,12 @@ export default function Modal({ setShowModal }: Props): ReactElement {
     setShowModal(false);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   const handleClose = async (e?: React.MouseEvent<HTMLInputElement>) => {
     setShowModal(false);
   };
@@ -41,18 +49,20 @@ export default function Modal({ setShowModal }: Props): ReactElement {
     <ModalBackground>
       <ModalContainer>
         <ModalHeader>
-          <h4 className="modal-title">Add new task</h4>
+          <ModalTitle>Add new task</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <input type="text" onChange={handleChange}></input>
+          <input
+            type="text"
+            onChange={handleChange}
+            onKeyDown={handleKeyPress}
+          ></input>
         </ModalBody>
         <ModalFooter>
-          <button className="close" onClick={handleClose}>
-            Close
-          </button>
-          <button className="submit" onClick={handleSubmit}>
+          <CloseButton onClick={handleClose}>Close</CloseButton>
+          <SubmitButton tabIndex="0" onClick={handleSubmit}>
             Submit
-          </button>
+          </SubmitButton>
         </ModalFooter>
       </ModalContainer>
     </ModalBackground>,
