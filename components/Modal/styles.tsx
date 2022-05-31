@@ -41,5 +41,38 @@ export const ModalBody = styled.div`
 `;
 ModalBody.displayName = "ModalContent";
 
-export const ModalFooter = styled.div``;
+export const ModalTitle = styled.h4`
+  user-select: none;
+`;
+ModalTitle.displayName = "ModalTitle";
+
+export const ModalFooter = styled.div`
+  display: flex;
+  justify-content: end;
+`;
 ModalFooter.displayName = "ModalContent";
+
+export const CloseButton = styled.button`
+  font-family: "Space Grotesk", sans-serif;
+  background: rgb(0, 0, 0, 0.1);
+  border: 1px solid #d3d3d3;
+  color: #000;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+`;
+CloseButton.displayName = "CloseButton";
+
+export const SubmitButton = styled.button`
+  font-family: "Space Grotesk", sans-serif;
+  background: #008000;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  margin-left: 6px;
+`;
+SubmitButton.displayName = "SubmitButton";

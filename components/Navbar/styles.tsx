@@ -35,5 +35,6 @@ export const AddTaskButton = styled.button`
   border-radius: 12px;
   padding: 10px 16px;
   margin-left: 36px;
+  cursor: pointer;
 `;
 AddTaskButton.displayName = "AddTaskButton";
