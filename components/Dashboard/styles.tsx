@@ -5,6 +5,7 @@ export const Task = styled.span`
   font-family: "Space Grotesk", sans-serif;
   margin-top: 16px;
   background: rgb(0, 0, 0, 0.1);
+  border: 1px solid #d3d3d3;
   border-radius: 6px;
   padding: 6px 12px;
   align-items: center;

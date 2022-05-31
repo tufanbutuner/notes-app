@@ -27,8 +27,10 @@ export const NavbarPages = styled.div`
 NavbarPages.displayName = "NavbarPages";
 
 export const AddTaskButton = styled.button`
-  background: #2f2fff;
-  color: white;
+  font-family: "Space Grotesk", sans-serif;
+  background: rgb(0, 0, 0, 0.1);
+  border: 1px solid #d3d3d3;
+  color: #000;
   font-weight: bold;
   border-radius: 12px;
   padding: 10px 16px;
