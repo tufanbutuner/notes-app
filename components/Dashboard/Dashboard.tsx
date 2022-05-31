@@ -22,14 +22,10 @@ import image from "/public/undraw_diary_re_4jpc.svg";
 export default function Dashboard() {
   const [tasks, setTask] = useState<any>([]);
   const [sortBy, setSortBy] = useState("ascending");
-  const ascendingQuery = query(collection(db, "tasks"), orderBy("task"));
-  const descendingQuery = query(
-    collection(db, "tasks"),
-    orderBy("task", "desc")
-  );
+  const dateQuery = query(collection(db, "tasks"), orderBy("created", "desc"));
 
   const getTasks = async () => {
-    const data = await onSnapshot(ascendingQuery, (snapshot) => {
+    const data = await onSnapshot(dateQuery, (snapshot) => {
       const task = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
