@@ -8,6 +8,10 @@ export const NavbarContainer = styled.div`
   grid-template-areas: "logo pages";
   margin: 32px;
   padding: 12px 36px;
+
+  @media (max-width: 600px) {
+    padding: 0px;
+  }
 `;
 NavbarContainer.displayName = "NavbarContainer";
 

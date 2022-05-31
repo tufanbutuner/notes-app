@@ -48,6 +48,7 @@ export const TaskListContainer = styled.div`
 
   @media (max-width: 600px) {
     margin-top: 0px;
+    padding: 0px 24px;
   }
 `;
 TaskListContainer.displayName = "TaskListContainer";
