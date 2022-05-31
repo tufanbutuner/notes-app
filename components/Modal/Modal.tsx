@@ -6,7 +6,7 @@ import {
   ModalHeader,
 } from "./styles";
 import { ReactElement, useState } from "react";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 import ReactDom from "react-dom";
 import { db } from "../../server/index";
@@ -26,7 +26,10 @@ export default function Modal({ setShowModal }: Props): ReactElement {
   };
 
   const handleSubmit = async (e?: React.MouseEvent<HTMLInputElement>) => {
-    await setDoc(taskCollection, { task: taskInput });
+    await setDoc(taskCollection, {
+      task: taskInput,
+      created: serverTimestamp(),
+    });
     setShowModal(false);
   };
 
