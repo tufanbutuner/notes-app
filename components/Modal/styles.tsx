@@ -66,7 +66,6 @@ CloseButton.displayName = "CloseButton";
 
 export const SubmitButton = styled.button`
   font-family: "Space Grotesk", sans-serif;
-  background: #008000;
   border: none;
   color: #fff;
   font-weight: bold;
@@ -74,5 +73,6 @@ export const SubmitButton = styled.button`
   padding: 10px 14px;
   cursor: pointer;
   margin-left: 6px;
+  background: #008000;
 `;
 SubmitButton.displayName = "SubmitButton";

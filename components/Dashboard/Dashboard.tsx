@@ -21,7 +21,6 @@ import image from "/public/undraw_diary_re_4jpc.svg";
 
 export default function Dashboard() {
   const [tasks, setTask] = useState<any>([]);
-  const [sortBy, setSortBy] = useState("ascending");
   const dateQuery = query(collection(db, "tasks"), orderBy("created", "desc"));
 
   const getTasks = async () => {
@@ -34,13 +33,8 @@ export default function Dashboard() {
     });
   };
 
-  const handleChange = (e) => {
-    setSortBy(e.target.value);
-  };
-
   useEffect(() => {
     getTasks();
-    console.log(tasks);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -58,16 +52,10 @@ export default function Dashboard() {
 
       <TaskListContainer>
         <h1>Your tasks</h1>
-        {/* <select value={sortBy} onChange={handleChange}>
-          <option>Ascending</option>
-          <option>Descending</option>
-        </select> */}
-
         {tasks.map((task) => {
           return (
             <Task key={task.id}>
               {task.task}
-              {task.task.created}
               <input
                 onClick={() => deleteTask(task).then()}
                 type="checkbox"
