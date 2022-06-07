@@ -13,3 +13,11 @@ Container.displayName = "Container";
 
 export const TaskContainer = styled.div``;
 TaskContainer.displayName = "TaskContainer";
+
+export const RegisterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 24px;
+`;
+RegisterContainer.displayName = "RegisterContainer";
