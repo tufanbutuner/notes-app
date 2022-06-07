@@ -42,3 +42,16 @@ export const AddTaskButton = styled.button`
   cursor: pointer;
 `;
 AddTaskButton.displayName = "AddTaskButton";
+
+export const Router = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+
+  li {
+    margin-left: 24px;
+    cursor: pointer;
+  }
+`;
+Router.displayName = "Router";

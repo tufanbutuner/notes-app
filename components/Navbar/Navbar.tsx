@@ -3,11 +3,13 @@ import {
   NavbarContainer,
   NavbarLogo,
   NavbarPages,
+  Router,
 } from "./styles";
 /* eslint-disable react/jsx-key */
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 
+import Link from "next/link";
 import Modal from "../Modal/Modal";
 import { motion } from "framer-motion";
 
@@ -23,6 +25,19 @@ export default function Navbar() {
     <NavbarContainer>
       <NavbarLogo>Take Note</NavbarLogo>
       <NavbarPages>
+        <Router>
+          <li>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/register">
+              <a>Register</a>
+            </Link>
+          </li>
+        </Router>
         <AddTaskButton
           as={motion.button}
           whileHover={{ scale: 1.1 }}
