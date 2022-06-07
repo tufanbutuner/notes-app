@@ -1,71 +1,129 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+
+import { auth } from "../../server/index";
 
 export default function SignUpForm() {
+  const [user, setUser] = useState<any>({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logout = async () => {
+    await signOut(auth);
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser?: any) => {
+      setUser(currentUser);
+    });
+  }, [user]);
+
   return (
-    <div className="form">
-      <div className="form-body">
-        <div className="username">
-          <label className="form__label" htmlFor="firstName">
-            First Name{" "}
-          </label>
-          <input
-            className="form__input"
-            type="text"
-            id="firstName"
-            placeholder="First Name"
-          />
+    <>
+      <span>Welcome {user?.email}!</span>
+      <div className="form">
+        <div className="form-body">
+          <div className="email">
+            <label className="form__label" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="form__input"
+              placeholder="Email"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(event.target.value)
+              }
+            />
+          </div>
+          <div className="password">
+            <label className="form__label" htmlFor="password">
+              Password
+            </label>
+            <input
+              className="form__input"
+              type="password"
+              id="password"
+              placeholder="Password"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(event.target.value)
+              }
+            />
+          </div>
         </div>
-        <div className="lastName">
-          <label className="form__label" htmlFor="lastName">
-            Last Name{" "}
-          </label>
-          <input
-            type="text"
-            name=""
-            id="lastName"
-            className="form__input"
-            placeholder="LastName"
-          />
-        </div>
-        <div className="email">
-          <label className="form__label" htmlFor="email">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="form__input"
-            placeholder="Email"
-          />
-        </div>
-        <div className="password">
-          <label className="form__label" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="form__input"
-            type="password"
-            id="password"
-            placeholder="Password"
-          />
-        </div>
-        <div className="confirm-password">
-          <label className="form__label" htmlFor="confirmPassword">
-            Confirm Password{" "}
-          </label>
-          <input
-            className="form__input"
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-          />
+        <div className="footer">
+          <button type="submit" className="btn" onClick={register}>
+            Register
+          </button>
         </div>
       </div>
-      <div className="footer">
-        <button type="submit" className="btn">
-          Register
-        </button>
+
+      <div className="form">
+        <div className="form-body">
+          <div className="email">
+            <label className="form__label" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="form__input"
+              placeholder="Email"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setLoginEmail(event.target.value)
+              }
+            />
+          </div>
+          <div className="password">
+            <label className="form__label" htmlFor="password">
+              Password
+            </label>
+            <input
+              className="form__input"
+              type="password"
+              id="password"
+              placeholder="Password"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setLoginPassword(event.target.value)
+              }
+            />
+          </div>
+        </div>
+        <div className="footer">
+          <button type="submit" className="btn" onClick={login}>
+            Login
+          </button>
+        </div>
       </div>
-    </div>
+      <button type="submit" className="btn" onClick={logout}>
+        Logout
+      </button>
+    </>
   );
 }
