@@ -8,19 +8,10 @@ import {
 
 import { auth } from "../../server/index";
 
-export default function SignUpForm() {
+export default function LoginForm() {
   const [user, setUser] = useState<any>({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const login = async () => {
     try {
@@ -44,6 +35,7 @@ export default function SignUpForm() {
   return (
     <>
       <span>Welcome {user?.email}!</span>
+
       <div className="form">
         <div className="form-body">
           <div className="email">
@@ -76,8 +68,8 @@ export default function SignUpForm() {
           </div>
         </div>
         <div className="footer">
-          <button type="submit" className="btn" onClick={register}>
-            Register
+          <button type="submit" className="btn" onClick={login}>
+            Login
           </button>
         </div>
       </div>
