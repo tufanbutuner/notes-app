@@ -7,8 +7,10 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../../server/index";
+import { useRouter } from "next/router";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [user, setUser] = useState<any>({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +18,7 @@ export default function LoginForm() {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
+      router.push("/");
       console.log(user);
     } catch (error) {
       console.log(error);

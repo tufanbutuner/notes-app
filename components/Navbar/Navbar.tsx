@@ -37,6 +37,11 @@ export default function Navbar() {
               <a>Register</a>
             </Link>
           </li>
+          <li>
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </li>
         </Router>
         <AddTaskButton
           as={motion.button}
