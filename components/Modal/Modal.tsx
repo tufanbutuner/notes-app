@@ -13,12 +13,15 @@ import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 import ReactDom from "react-dom";
 import { db } from "../../server/index";
+import { getAuth } from "firebase/auth";
 
 interface Props {
   setShowModal: any;
 }
 
 export default function Modal({ setShowModal }: Props): ReactElement {
+  const auth = getAuth();
+  const user = auth.currentUser;
   const taskCollection = doc(collection(db, "tasks"));
   const [taskInput, setTaskInput] = useState("");
 
@@ -30,8 +33,9 @@ export default function Modal({ setShowModal }: Props): ReactElement {
   const handleSubmit = async (e?: React.MouseEvent<HTMLInputElement>) => {
     if (taskInput.length > 0) {
       await setDoc(taskCollection, {
-        task: taskInput,
         created: serverTimestamp(),
+        task: taskInput,
+        userId: user.uid,
       });
       setShowModal(false);
     }

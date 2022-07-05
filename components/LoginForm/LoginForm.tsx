@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
@@ -30,9 +29,14 @@ export default function LoginForm() {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser?: any) => {
-      setUser(currentUser);
-    });
+    if (user) {
+      onAuthStateChanged(auth, (currentUser?: any) => {
+        setUser(currentUser);
+        console.log(`${currentUser} has logged in`);
+      });
+    } else {
+      console.log("User not logged in");
+    }
   }, [user]);
 
   return (

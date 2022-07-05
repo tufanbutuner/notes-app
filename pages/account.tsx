@@ -13,7 +13,8 @@ export default function Account() {
         <div>
           <Image src={image} alt="" />
         </div>
-        <SignUpForm {variant === "login" ? "login" : "register"}/>
+        {/* <SignUpForm {variant === "login" ? "login" : "register"}/> */}
+        <SignUpForm />
       </RegisterContainer>
     </>
   );
