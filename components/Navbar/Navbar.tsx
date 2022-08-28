@@ -11,7 +11,10 @@ import React, { useState } from "react";
 
 import Link from "next/link";
 import Modal from "../Modal/Modal";
+import { auth } from "../../server/index";
 import { motion } from "framer-motion";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const [showModal, setShowModal] = useState(false);
@@ -19,6 +22,10 @@ export default function Navbar() {
   const handleClick = (e) => {
     e.preventDefault();
     setShowModal(true);
+  };
+
+  const logout = async () => {
+    await signOut(auth);
   };
 
   return (
@@ -41,6 +48,11 @@ export default function Navbar() {
             <Link href="/login">
               <a>Login</a>
             </Link>
+          </li>
+          <li>
+            <button type="submit" className="btn" onClick={logout}>
+              Logout
+            </button>
           </li>
         </Router>
         <AddTaskButton

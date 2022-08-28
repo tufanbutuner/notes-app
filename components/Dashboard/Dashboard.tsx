@@ -15,41 +15,43 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import Image from "next/image";
 import { db } from "../../server/index";
-import { getAuth } from "firebase/auth";
 import image from "/public/undraw_diary_re_4jpc.svg";
 
 export default function Dashboard() {
   const auth = getAuth();
   const user = auth.currentUser;
+  const uid = auth?.currentUser?.uid;
   const [tasks, setTask] = useState<any>([]);
-  const dateQuery = query(
-    collection(db, "tasks"),
-    where("userId", "==", user.uid),
-    orderBy("created", "desc")
-  );
 
   const getTasks = async () => {
-    const data = await onSnapshot(dateQuery, (snapshot) => {
-      const task = snapshot.docs.map((doc) => ({
-        user: user.uid,
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTask(task);
-    });
+    const data = await onSnapshot(
+      query(
+        collection(db, "tasks"),
+        where("userId", "==", uid),
+        orderBy("created", "desc")
+      ),
+      (snapshot) => {
+        const task = snapshot.docs.map((doc) => ({
+          user: uid,
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setTask(task);
+      }
+    );
+    return data;
   };
 
   useEffect(() => {
-    if (user) {
+    if (uid) {
       getTasks();
-    } else {
-      console.log("User not logged in");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth.currentUser]);
+  }, [user]);
 
   const deleteTask = async (task) => {
     const taskDelete = doc(db, "tasks", task.id);
@@ -63,7 +65,7 @@ export default function Dashboard() {
         <Image src={image} alt="" />
       </ImageContainer>
 
-      {!user ? (
+      {!user?.uid ? (
         <h1>Please log in</h1>
       ) : (
         <TaskListContainer>

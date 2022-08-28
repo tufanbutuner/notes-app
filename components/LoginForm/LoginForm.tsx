@@ -33,6 +33,7 @@ export default function LoginForm() {
       onAuthStateChanged(auth, (currentUser?: any) => {
         setUser(currentUser);
         console.log(`${currentUser} has logged in`);
+        console.log(user.uid);
       });
     } else {
       console.log("User not logged in");
@@ -80,9 +81,6 @@ export default function LoginForm() {
           </button>
         </div>
       </div>
-      <button type="submit" className="btn" onClick={logout}>
-        Logout
-      </button>
     </>
   );
 }
