@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { FormCard, FormContainer, SubmitButton } from "./styles";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -25,10 +27,11 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p className="error">{error}</p>}
-      {loading && <p className="loading">Loading...</p>}
-      <div className="form">
+    <FormContainer>
+      <form onSubmit={handleSubmit}>
+        {error && <p className="error">{error}</p>}
+        {loading && <p className="loading">Loading...</p>}
+
         <h1>Login</h1>
         <div className="form-body">
           <div className="email">
@@ -61,9 +64,17 @@ export default function LoginForm() {
           </div>
         </div>
         <div className="footer">
-          <input type="submit" className="btn" value="Login" />
+          <SubmitButton type="submit" className="btn" value="Login" />
         </div>
-      </div>
-    </form>
+        <div>
+          <p>
+            Don&apos;t have an account?{" "}
+            <Link href="/register" style={{ color: "blue" }}>
+              Sign up here
+            </Link>
+          </p>
+        </div>
+      </form>
+    </FormContainer>
   );
 }

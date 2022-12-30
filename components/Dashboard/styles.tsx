@@ -22,6 +22,9 @@ export const DashboardContainer = styled.div`
   @media (max-width: 600px) {
     display: flex;
     flex-direction: column;
+    margin: auto;
+    width: 100%;
+    align-items: center;
   }
 
   display: grid;

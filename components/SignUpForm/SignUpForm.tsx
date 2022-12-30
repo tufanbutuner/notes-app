@@ -5,6 +5,7 @@ import { auth } from "../../server/index";
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
+import { FormContainer, SubmitButton } from "./styles";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -29,10 +30,10 @@ export default function SignUpForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p className="error">{error}</p>}
-      {loading && <p className="loading">Loading...</p>}
-      <div className="form">
+    <FormContainer>
+      <form onSubmit={handleSubmit}>
+        {error && <p className="error">{error}</p>}
+        {loading && <p className="loading">Loading...</p>}
         <h1>Register</h1>
         <div className="form-body">
           <div className="email">
@@ -65,7 +66,7 @@ export default function SignUpForm() {
           </div>
         </div>
         <div className="footer">
-          <input type="submit" className="btn" value="Register" />
+          <SubmitButton type="submit" className="btn" value="Register" />
         </div>
         <div>
           <p>
@@ -75,7 +76,7 @@ export default function SignUpForm() {
             </Link>
           </p>
         </div>
-      </div>
-    </form>
+      </form>
+    </FormContainer>
   );
 }
