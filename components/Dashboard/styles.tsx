@@ -27,16 +27,8 @@ export const DashboardContainer = styled.div`
     align-items: center;
   }
 
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-areas: "image tasks";
-  height: 500px;
-
-  img {
-    padding: 24px;
-    width: 80%;
-    height: 80%;
-  }
+  display: flex;
+  flex-direction: column;
 `;
 DashboardContainer.displayName = "DashboardContainer";
 
@@ -47,7 +39,7 @@ export const TaskListContainer = styled.div`
   width: 100%;
   margin-top: 32px;
   justify-content: center;
-  padding: 0px 48px 0px 24px;
+  padding: 0px 48px 0px 48px;
 
   @media (max-width: 600px) {
     margin-top: 0px;
@@ -55,10 +47,3 @@ export const TaskListContainer = styled.div`
   }
 `;
 TaskListContainer.displayName = "TaskListContainer";
-
-export const ImageContainer = styled.div`
-  @media (max-width: 600px) {
-    display: none;
-  }
-`;
-ImageContainer.displayName = "ImageContainer";

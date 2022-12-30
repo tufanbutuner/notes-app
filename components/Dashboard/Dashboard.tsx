@@ -1,10 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-  DashboardContainer,
-  ImageContainer,
-  Task,
-  TaskListContainer,
-} from "./styles";
+import { DashboardContainer, Task, TaskListContainer } from "./styles";
 import React, { useEffect, useState } from "react";
 import {
   collection,
@@ -16,9 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 
-import Image from "next/image";
 import { db } from "../../server/index";
-import image from "/public/undraw_diary_re_4jpc.svg";
 import { useAuth } from "../../context/AuthContext";
 import LoginForm from "../LoginForm";
 
@@ -61,11 +54,10 @@ export default function Dashboard() {
   return (
     <>
       <DashboardContainer>
-        <ImageContainer>
-          <Image src={image} alt="" />
-        </ImageContainer>
         {!currentUser?.uid ? (
-          <LoginForm />
+          <TaskListContainer>
+            <LoginForm />
+          </TaskListContainer>
         ) : (
           <TaskListContainer>
             <h1>Your tasks</h1>
