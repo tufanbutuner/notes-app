@@ -56,9 +56,6 @@ export default function Navbar() {
             ) : (
               <Router>
                 <li>
-                  <Link href="/">Home</Link>
-                </li>
-                <li>
                   <Link href="/register">Register</Link>
                 </li>
                 <li>
@@ -66,17 +63,19 @@ export default function Navbar() {
                 </li>
               </Router>
             )}
-          </AuthContextProvider>
 
-          <AddTaskButton
-            as={motion.button}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={handleClick}
-            open={showModal}
-          >
-            Add Task
-          </AddTaskButton>
+            {currentUser && (
+              <AddTaskButton
+                as={motion.button}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleClick}
+                open={showModal}
+              >
+                Add Task
+              </AddTaskButton>
+            )}
+          </AuthContextProvider>
         </NavbarPages>
         {showModal === true && <Modal setShowModal={setShowModal} />}
       </NavbarContainer>
