@@ -15,28 +15,27 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import Image from "next/image";
 import { db } from "../../server/index";
 import image from "/public/undraw_diary_re_4jpc.svg";
+import { useAuth } from "../../context/AuthContext";
+import LoginForm from "../LoginForm";
 
 export default function Dashboard() {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const uid = auth?.currentUser?.uid;
   const [tasks, setTask] = useState<any>([]);
+  const { currentUser } = useAuth();
 
   const getTasks = async () => {
     const data = await onSnapshot(
       query(
         collection(db, "tasks"),
-        where("userId", "==", uid),
+        where("userId", "==", currentUser?.uid),
         orderBy("created", "desc")
       ),
       (snapshot) => {
         const task = snapshot.docs.map((doc) => ({
-          user: uid,
+          user: currentUser?.uid,
           id: doc.id,
           ...doc.data(),
         }));
@@ -46,46 +45,47 @@ export default function Dashboard() {
     return data;
   };
 
-  useEffect(() => {
-    if (uid) {
-      getTasks();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
   const deleteTask = async (task) => {
     const taskDelete = doc(db, "tasks", task.id);
     const data = await deleteDoc(taskDelete);
-    // return data;
+    return data;
   };
 
-  return (
-    <DashboardContainer>
-      <ImageContainer>
-        <Image src={image} alt="" />
-      </ImageContainer>
+  useEffect(() => {
+    if (currentUser?.uid) {
+      getTasks();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser?.uid]);
 
-      {!user?.uid ? (
-        <h1>Please log in</h1>
-      ) : (
-        <TaskListContainer>
-          <h1>Your tasks</h1>
-          {tasks.map((task) => {
-            return (
-              <Task key={task.id}>
-                {task.task}
-                <input
-                  onClick={() => deleteTask(task).then()}
-                  type="checkbox"
-                  id=""
-                  name="task"
-                  value=""
-                />
-              </Task>
-            );
-          })}
-        </TaskListContainer>
-      )}
-    </DashboardContainer>
+  return (
+    <>
+      <DashboardContainer>
+        <ImageContainer>
+          <Image src={image} alt="" />
+        </ImageContainer>
+        {!currentUser?.uid ? (
+          <LoginForm />
+        ) : (
+          <TaskListContainer>
+            <h1>Your tasks</h1>
+            {tasks.map((task) => {
+              return (
+                <Task key={task.id}>
+                  {task.task}
+                  <input
+                    onClick={() => deleteTask(task).then()}
+                    type="checkbox"
+                    id=""
+                    name="task"
+                    value=""
+                  />
+                </Task>
+              );
+            })}
+          </TaskListContainer>
+        )}
+      </DashboardContainer>
+    </>
   );
 }
