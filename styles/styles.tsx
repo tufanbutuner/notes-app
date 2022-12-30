@@ -15,12 +15,9 @@ export const TaskContainer = styled.div``;
 TaskContainer.displayName = "TaskContainer";
 
 export const RegisterContainer = styled.div`
+  display: flex;
+  justify-content: center;
   margin: auto;
   padding: 24px;
-
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-areas: "image tasks";
-  height: 500px;
 `;
 RegisterContainer.displayName = "RegisterContainer";

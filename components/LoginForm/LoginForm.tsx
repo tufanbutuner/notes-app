@@ -1,50 +1,35 @@
-import React, { useEffect, useState } from "react";
-import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-
-import { auth } from "../../server/index";
+import React, { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
 export default function LoginForm() {
   const router = useRouter();
-  const [user, setUser] = useState<any>({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
 
-  const login = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      setError("");
+      setLoading(true);
+      await login(email, password);
       router.push("/");
-      console.log(user);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      setError(err.message);
     }
+    setLoading(false);
   };
-
-  const logout = async () => {
-    await signOut(auth);
-  };
-
-  useEffect(() => {
-    if (user) {
-      onAuthStateChanged(auth, (currentUser?: any) => {
-        setUser(currentUser);
-        console.log(`${currentUser} has logged in`);
-        console.log(user.uid);
-      });
-    } else {
-      console.log("User not logged in");
-    }
-  }, [user]);
 
   return (
-    <>
-      <span>Welcome {user?.email}!</span>
-
+    <form onSubmit={handleSubmit}>
+      {error && <p className="error">{error}</p>}
+      {loading && <p className="loading">Loading...</p>}
       <div className="form">
+        <h1>Login</h1>
         <div className="form-body">
           <div className="email">
             <label className="form__label" htmlFor="email">
@@ -76,11 +61,9 @@ export default function LoginForm() {
           </div>
         </div>
         <div className="footer">
-          <button type="submit" className="btn" onClick={login}>
-            Login
-          </button>
+          <input type="submit" className="btn" value="Login" />
         </div>
       </div>
-    </>
+    </form>
   );
 }

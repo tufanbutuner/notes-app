@@ -5,14 +5,11 @@ import { RegisterContainer } from "../styles/styles";
 import SignUpForm from "../components/SignUpForm";
 import image from "/public/register-image.svg";
 
-export default function register() {
+export default function Register() {
   return (
     <>
       <Navbar />
       <RegisterContainer>
-        <div>
-          <Image src={image} alt="" />
-        </div>
         <SignUpForm />
       </RegisterContainer>
     </>

@@ -3,18 +3,15 @@ import LoginForm from "../components/LoginForm";
 import Navbar from "../components/Navbar";
 import React from "react";
 import { RegisterContainer } from "../styles/styles";
-import image from "/public/register-image.svg";
+import { AuthContextProvider } from "../context/AuthContext";
 
 export default function Login() {
   return (
-    <>
+    <AuthContextProvider>
       <Navbar />
       <RegisterContainer>
-        <div>
-          <Image src={image} alt="" />
-        </div>
         <LoginForm />
       </RegisterContainer>
-    </>
+    </AuthContextProvider>
   );
 }

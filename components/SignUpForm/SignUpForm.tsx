@@ -1,87 +1,81 @@
-import React, { useEffect, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import React, { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { auth } from "../../server/index";
 import { useRouter } from "next/router";
+import { useAuth } from "../../context/AuthContext";
+import Link from "next/link";
 
 export default function SignUpForm() {
   const router = useRouter();
-  const [user, setUser] = useState<any>({});
+  const { register } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const register = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      setError("");
+      setLoading(true);
+      await register(email, password);
       router.push("/");
-      console.log(user);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      setError(err.message);
     }
+    setLoading(false);
   };
-
-  const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      router.push("/");
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const logout = async () => {
-    await signOut(auth);
-  };
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser?: any) => {
-      setUser(currentUser);
-    });
-  }, [user]);
 
   return (
-    <div className="form">
-      <div className="form-body">
-        <div className="email">
-          <label className="form__label" htmlFor="email">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="form__input"
-            placeholder="Email"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(event.target.value)
-            }
-          />
+    <form onSubmit={handleSubmit}>
+      {error && <p className="error">{error}</p>}
+      {loading && <p className="loading">Loading...</p>}
+      <div className="form">
+        <h1>Register</h1>
+        <div className="form-body">
+          <div className="email">
+            <label className="form__label" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="form__input"
+              placeholder="Email"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(event.target.value)
+              }
+            />
+          </div>
+          <div className="password">
+            <label className="form__label" htmlFor="password">
+              Password
+            </label>
+            <input
+              className="form__input"
+              type="password"
+              id="password"
+              placeholder="Password"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(event.target.value)
+              }
+            />
+          </div>
         </div>
-        <div className="password">
-          <label className="form__label" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="form__input"
-            type="password"
-            id="password"
-            placeholder="Password"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(event.target.value)
-            }
-          />
+        <div className="footer">
+          <input type="submit" className="btn" value="Register" />
+        </div>
+        <div>
+          <p>
+            Already have an account?{" "}
+            <Link href="/login" style={{ color: "blue" }}>
+              Log in here
+            </Link>
+          </p>
         </div>
       </div>
-      <div className="footer">
-        <button type="submit" className="btn" onClick={register}>
-          Register
-        </button>
-      </div>
-    </div>
+    </form>
   );
 }
