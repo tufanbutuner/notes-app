@@ -22,9 +22,10 @@ export const DashboardContainer = styled.div`
   @media (max-width: 600px) {
     display: flex;
     flex-direction: column;
-    margin: auto;
     width: 100%;
     align-items: center;
+
+    margin-top: ${(show: any) => (show ? "90px" : "0px")};
   }
 
   display: flex;

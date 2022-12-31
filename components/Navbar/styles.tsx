@@ -1,3 +1,4 @@
+import { BiMenu } from "react-icons/bi";
 import styled from "styled-components";
 
 export const NavbarContainer = styled.div`
@@ -27,6 +28,13 @@ export const NavbarPages = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
+
+  @media (max-width: 600px) {
+    position: absolute;
+    top: 90px;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 NavbarPages.displayName = "NavbarPages";
 
@@ -40,6 +48,10 @@ export const AddTaskButton = styled.button`
   padding: 10px 16px;
   margin-left: 36px;
   cursor: pointer;
+
+  @media (max-width: 600px) {
+    margin-left: 0px;
+  }
 `;
 AddTaskButton.displayName = "AddTaskButton";
 
@@ -53,5 +65,29 @@ export const Router = styled.div`
     margin-left: 24px;
     cursor: pointer;
   }
+
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    margin-bottom: 12px;
+
+    li {
+      margin-left: 0px;
+    }
+  }
 `;
 Router.displayName = "Router";
+
+export const MenuIcon = styled(BiMenu)`
+  display: none;
+
+  @media (max-width: 600px) {
+    display: flex;
+    cursor: pointer;
+    position: absolute;
+    right: 32px;
+    top: 42px;
+  }
+`;
