@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { FormCard, FormContainer, SubmitButton } from "./styles";
+import { FormContainer, SubmitButton } from "./styles";
 
 export default function LoginForm() {
   const router = useRouter();

@@ -27,10 +27,9 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const register = async (email, password) => {
+  const signUp = async (email, password) => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
-      router.push("/");
       console.log(user);
     } catch (error) {
       console.log(error);
@@ -52,7 +51,7 @@ export const AuthContextProvider = ({ children }) => {
     currentUser,
     setCurrentUser,
     login,
-    register,
+    signUp,
     logout,
   };
 

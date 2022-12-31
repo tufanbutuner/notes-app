@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
-import { auth } from "../../server/index";
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
@@ -9,11 +6,11 @@ import { FormContainer, SubmitButton } from "./styles";
 
 export default function SignUpForm() {
   const router = useRouter();
-  const { register } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { signUp } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +18,7 @@ export default function SignUpForm() {
     try {
       setError("");
       setLoading(true);
-      await register(email, password);
+      await signUp(email, password);
       router.push("/");
     } catch (err) {
       setError(err.message);
